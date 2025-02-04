@@ -1,5 +1,9 @@
 package carrierOps;
 
-public class CG extends Vessels{
+import java.util.HashMap;
 
+public class CG extends Vessels{
+	public CG(HashMap<Integer,String>cg) {
+		
+	}
 }

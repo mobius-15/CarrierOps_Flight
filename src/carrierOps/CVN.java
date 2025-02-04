@@ -1,9 +1,12 @@
 package carrierOps;
 
+import java.util.HashMap;
+
 public class CVN extends Vessels implements Fleet{
-			
-	public CVN() {
+Fleet cvn;			
+	public CVN(HashMap<Integer,String>cvn) {
 		setName("George_Washington");
+//		setName();
 		setPower(260000);
 		setBasicPlacement(85000);
 		 int cats;

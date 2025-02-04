@@ -3,12 +3,13 @@ import java.util.List;
 import java.util.Random;
 
 import carrierOps.CVN;
+import carrierOps.Fleet;
 public class Main {
 
 	public static void main(String[] args) {
 		// TODO 自動生成されたメソッド・スタブ
 		Random random=new Random();
-		CVN cvn73 =new CVN();//艦番号はMainで指定
+		CVN cvn73 =new CVN(Fleet.cvn());//艦番号はMainで指定
 		List<String> vfa102ModexList = Hanger.vfa102();
 		List<String>vfa147ModexList=Hanger.vfa147();
 		List<String>vfa27ModexList=Hanger.vfa27();

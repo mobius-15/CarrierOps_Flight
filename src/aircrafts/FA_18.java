@@ -23,7 +23,7 @@ public class FA_18 extends Aircrafts{
 			setSfc(0.81);
 			setMilThrust(11000);
 			setEmptyWeight(25100);
-			setFullWeight(50200);
+//			setFullWeight(50200);
 			this.a_bThrust=17700;
 			weaponized=true;
 		
@@ -64,33 +64,34 @@ public class FA_18 extends Aircrafts{
 		    System.out.println("初期搭載燃料: " + totalFuel + " lb");
 //		for(int i=0;i<FlightPlan.getFpList().size();i++){
 							
-		    for (int[] point : FlightPlan.getFpList()) {wpCount++;
+		    for (int[] point : FlightPlan2.getFpList()) {wpCount++;
 		    	System.out.println("WP "+wpCount+" Status?");
 		    	String status=scanner.nextLine().toLowerCase();
 		        double timeHours =(double) point[2] / point[1]; // 時間 (時単位)
 		        double fuelUsed;
 		        
  
-		        switch(status){
-		        case "climb"->{System.out.println("Climbing");
+//		        switch(status){
+		        /*case "climb"->*/if(status.contains("climb")){System.out.println("Climbing");
 		        			setMilThrust(11000);
 		        				fuelUsed=(fuel()*timeHours)+(climbingFF()*timeHours);}
 		        
-		        case "cruise"->{System.out.println("Cruising");
-		        	if(getFullWeight()>=40000){setMilThrust((int)(getMilThrust()*0.46));
+		       /* case "cruise"->*/else if(status.contains("cruis")){System.out.println("Cruising");
+		        if(getFullWeight()>=40000){setMilThrust((int)(getMilThrust()*0.46));
 		        	}else {setMilThrust((int)(getMilThrust()*0.3));}
 		        		fuelUsed=fuel()*timeHours;}
 		        
-		        default ->{fuelUsed=fuel()*timeHours;}
-		        	}
+		        /*default ->*/else{fuelUsed=fuel()*timeHours;}
+		        	
 		        totalFuel -=fuelUsed;	 // 残燃料を更新
-	        		        
+	        
 		        System.out.println("WP "+wpCount+" での燃料消費量: " +(int) fuelUsed + " lb");
-		        System.out.println("残燃料: " + totalFuel + " lb");}
 		        if (totalFuel < 0) {
-		            System.out.println("Low Fuel: Divert or Request Tanker");
-//		            break;
-	     }
+		            System.err.println("Low Fuel: Divert or Request Tanker");
+		            break;}
+		        System.out.println("残燃料: " + totalFuel + " lb");}
+
+//	     }
 //	 }             		    		    
 }   
 		public double climbingFF() {

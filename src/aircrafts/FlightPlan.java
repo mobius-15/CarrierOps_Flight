@@ -22,9 +22,11 @@ public class FlightPlan extends Aircrafts{
 		System.out.println("WP数を入力");
 		wayPoint=getValidIntInput(scanner,"WP(整数):");
 		if(wayPoint>25) {wayPoint=25;}
-		FP=this.specify(wayPoint);
+		
+		FP=this.specify(wayPoint);	//
+		
 		}catch (Exception e) {
-			System.out.println("エラー " + e.getMessage());
+			System.err.println("エラー " + e.getMessage());
 		}
 
 	}
@@ -32,12 +34,13 @@ public class FlightPlan extends Aircrafts{
 		int[][]sa=new int[wayPoint][3];//
 		for(int s=0;s<sa.length;s++){super.wpCount++;System.out.println("WP"+super.wpCount+"の高度を入力");
 		sa[s][0]= getValidIntInput(scanner,"Altitude(整数):");
-		if(sa[s][0]>50000) {sa[s][0]=50000;}
+		if(sa[s][0]>50000) {sa[s][0]=50000;}else if(sa[s][0]<=100) {sa[s][0]=100;}
 		System.out.println("WP"+super.wpCount+"の速度を入力");
 		sa[s][1]= getValidIntInput(scanner,"knots(整数):");
-		if(sa[s][1]>1000) {sa[s][1]=1000;}
+		if(sa[s][1]>1000) {sa[s][1]=1000;}else if(sa[s][1]<=130) {sa[s][1]=130;}
 		System.out.println("次WPとの距離を入力");
 		sa[s][2]= getValidIntInput(scanner,"nm(整数):");
+		if(sa[s][2]>300) {sa[s][2]=300;}else if(sa[s][2]<=5) {sa[s][1]=5;}
 		}
 		return sa;
 	}
@@ -74,7 +77,7 @@ public class FlightPlan extends Aircrafts{
 	}
 	 public void displayFlightPlans() {
 	        if (fpList == null) {
-	            System.out.println("ArrayListなし");
+	            System.err.println("No ArrayList");
 	            return;
 	        }	    	
 	        for (int[] point : fpList){
@@ -85,13 +88,11 @@ public class FlightPlan extends Aircrafts{
 
 	        	System.out.println("飛行距離は"+(this.distance+=point[2])+"nm");
 	        	
-	        	}else { System.out.println("無効");}
+	        	}else { System.err.println("無効");}
 	    	}
 		
 	    }
-//	 public boolean equals(Object o) {
-//		 
-//	 }
+	 
 	public static List<int[]> getFpList() {
 		return fpList;
 	}

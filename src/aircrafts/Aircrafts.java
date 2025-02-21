@@ -194,6 +194,8 @@ public abstract class Aircrafts {
 	}
 	public void setEmptyWeight(int emptyWeight) {
 		this.emptyWeight = emptyWeight;
+		
+
 	}
 	
 }

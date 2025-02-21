@@ -5,7 +5,7 @@ import java.util.HashMap;
 public class CVN extends Vessels implements Fleet{
 Fleet cvn;			
 	public CVN(HashMap<Integer,String>cvn) {
-		setName("George_Washington");
+		setName(cvn.get(5));
 //		setName();
 		setPower(260000);
 		setBasicPlacement(85000);

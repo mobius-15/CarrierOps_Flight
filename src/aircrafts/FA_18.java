@@ -12,18 +12,18 @@ public class FA_18 extends Aircrafts{
 		
 		Random random=new Random();
 		Scanner scanner=new Scanner(System.in);
- FA_18(String name,String modex,String type,int nEngine,boolean weaponized) {
+ FA_18(String name,String type,int nEngine,boolean weaponized) {
 			setName("F/A-18C");
 			setType("multiRole");
 			setNEngine(2);
 			setCruiseSpeed(480);
 			setCeilingAlt(50000);
-			setModex(modex);
+//			setModex(modex);
 			setIntfuel(10800);
 			setSfc(0.81);
 			setMilThrust(11000);
 			setEmptyWeight(25100);
-//			setFullWeight(50200);
+			setFullWeight(50200);
 			this.a_bThrust=17700;
 			weaponized=true;
 		
@@ -71,17 +71,16 @@ public class FA_18 extends Aircrafts{
 		        double fuelUsed;
 		        
  
-//		        switch(status){
-		        /*case "climb"->*/if(status.contains("climb")){System.out.println("Climbing");
+		        if(status.contains("climb")){System.out.println("Climbing");
 		        			setMilThrust(11000);
 		        				fuelUsed=(fuel()*timeHours)+(climbingFF()*timeHours);}
 		        
-		       /* case "cruise"->*/else if(status.contains("cruis")){System.out.println("Cruising");
-		        if(getFullWeight()>=40000){setMilThrust((int)(getMilThrust()*0.46));
+		        else if(status.contains("cruis")){System.out.println("Cruising");
+		        	if(getFullWeight()>=40000){setMilThrust((int)(getMilThrust()*0.5));
 		        	}else {setMilThrust((int)(getMilThrust()*0.3));}
 		        		fuelUsed=fuel()*timeHours;}
 		        
-		        /*default ->*/else{fuelUsed=fuel()*timeHours;}
+		        else{fuelUsed=fuel()*timeHours;}
 		        	
 		        totalFuel -=fuelUsed;	 // 残燃料を更新
 	        

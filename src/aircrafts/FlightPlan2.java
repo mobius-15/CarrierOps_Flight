@@ -17,6 +17,7 @@ public class FlightPlan2 extends Aircrafts{
 	int[][]FP;
 	private static List<int[]>fpList=new ArrayList<>();
 	private final Scanner scanner = new Scanner(System.in); 
+	
     private static final String URL
 = "jdbc:mysql://localhost:3306/standard_atmosphere?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
     private static final String USER = "root"; 
@@ -54,7 +55,7 @@ public class FlightPlan2 extends Aircrafts{
 		sa[s][0]= getValidIntInput(scanner,"Altitude(整数):");
 		 sa[s][0]=Math.max(100, Math.min(50000, sa[s][0]));
 			
-		System.out.println("WP"+super.wpCount+"の速度を入力");
+		System.out.println("WP"+super.wpCount+"の速度を入力(CAS)");
 		double ρ_ρ0=getDataBase(conn,sa[s][0]);
 		int cas=getValidIntInput(scanner,"knots(整数):");
 			cas=Math.max(130, Math.min(1000,cas));
@@ -72,17 +73,18 @@ public class FlightPlan2 extends Aircrafts{
 		return sa;
 	}
 	private double getDataBase(Connection conn,int altitude)throws SQLException {
-		String sql="SELECT density_ratio FROM altitude LEFT JOIN density ON altitude.id=density.id "
-		+ "WHERE feet = (SELECT feet FROM altitude WHERE feet <= ? ORDER BY ABS(feet - ?) LIMIT 1) ";
+		StringBuilder sql=new StringBuilder();
+		sql.append("SELECT density_ratio FROM altitude LEFT JOIN density ON altitude.id=density.id ")
+		.append("WHERE feet = (SELECT feet FROM altitude WHERE feet <= ? ORDER BY ABS(feet - ?) LIMIT 1) ");
 		
-		try(PreparedStatement pstmt = conn.prepareStatement(sql)){
+		try(PreparedStatement pstmt = conn.prepareStatement(sql.toString())){
 			pstmt.setInt(1,altitude);
 			pstmt.setInt(2,altitude);
 			ResultSet rs=pstmt.executeQuery();
 		
 			if(rs.next()){return rs.getDouble("density_ratio");
 			}else {	System.err.println("取得できず"); 
-			return 0.5;}
+			return super.ρρ0;}
 		}
 		
 	}
@@ -108,10 +110,14 @@ public class FlightPlan2 extends Aircrafts{
                 scanner.nextLine();
             }
         }
+    }
+     public boolean isValidString(String missionType){
+        	return missionType.matches("[A-Z][A-Z0-9]{7}");
+        }
     
 //	public int[][] getFlightPlan() {
 ////		return FP;
-	}
+///}
 	public void gconvertAndAdd(int[][]FP) {
         for (int[] point : FP) {
             fpList.add(point);

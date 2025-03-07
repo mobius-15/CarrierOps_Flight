@@ -2,6 +2,8 @@ package aircrafts;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import carrierOps.CVW;
 public class Hanger extends Aircrafts{
 	CVW tailcode;
 	Aircrafts name;
@@ -41,5 +43,11 @@ return vfa195;
 		}
 		Collections.shuffle(modexList); // リストをランダムにシャッフル
 return new ArrayList<>(modexList.subList(0, count));
+	}
+	public String getSquadron() {
+		return this.squadron;
+	}
+	public void setSquadron(String squadron) {
+		this.squadron=squadron;
 	}
 }

@@ -1,35 +1,49 @@
 package aircrafts;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
 import carrierOps.CVN;
+import carrierOps.CVW;
 import carrierOps.Fleet;
 public class Main {
 
 	public static void main(String[] args) throws Exception{
 		// TODO 自動生成されたメソッド・スタブ
 		Random random=new Random();
-		CVN cvn73 =new CVN(Fleet.cvnp());
-		List<String> vfa102ModexList = Hanger.vfa102();
-		List<String>vfa147ModexList=Hanger.vfa147();
-		List<String>vfa27ModexList=Hanger.vfa27();
-		List<String>vfa195ModexList=Hanger.vfa195();
+		CVN cvn =new CVN(Fleet.cvnp());
+		
+		List<String>vModex102 = Hanger.vfa102();
+		List<String>vModex147=Hanger.vfa147();
+		List<String>vModex27=Hanger.vfa27();
+		List<String>vModex195=Hanger.vfa195();
 //        List<String> randomModexList1 = Hanger.getRandomModexList(vfa102ModexList, 2);
-
 		CVW cvw5 
-		=new CVW(vfa102ModexList,vfa147ModexList,vfa27ModexList,vfa195ModexList);
-//				(randomModexList1,randomModexList2,randomModexList3,randomModexList4);
-		cvw5.tailcode="NF";
+		=new CVW(vModex102,vModex147,vModex102,vModex195);
+		cvw5.setTailcode("NF");
+
 		System.out.println("\n");
-			FA_18F dback11 = new FA_18F("F/A-18F",vfa102ModexList.get(random.nextInt(11)),"multiRole",2,true);
-			System.out.println(dback11.getName()+":"+dback11.getModex());
-			Aircrafts dback12=dback11;
-			FlightPlan2 dplan11 = new FlightPlan2();
+
+		
+		HashMap<String,FA_18F>vfa102=new HashMap<>();
+		vfa102.put(vModex102.get(0),new FA_18F("F/A-18F","multiRole",2,true));
 			
-			dplan11.gconvertAndAdd(dplan11.FP);
-			dplan11.displayFlightPlans();
+		FA_18F dback11 =vfa102.get(vModex102.get(0));
+		
+		Aircrafts dback12=dback11;
+		vfa102.put(vModex102.get(1),(FA_18F)dback12);
+		
+		System.out.println(dback11.getName()+":"+vModex102.get(0));
 			
-			dback11.calculateFuelUsage(dback11,2);
+		FlightPlan2 dplan11 = new FlightPlan2();
+			
+		dplan11.gconvertAndAdd(dplan11.FP);
+		dback11.calculateFuelUsage(dback11,2);
+		dplan11.displayFlightPlans();
+		
+
+			
+			
 ////			Aircrafts hornet21 = new FA_18E(,"multiRole",2,true);
 ////			FlightPlan hplan21 = new FlightPlan();
 ////			
